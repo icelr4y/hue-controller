@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 public final class LightsStateBuilder {
 
-    
     public static List<LightState> parseList(String jsonStr) {
 	JSONObject json = new JSONObject(jsonStr);
 	List<LightState> result = new ArrayList<>();
@@ -18,7 +17,7 @@ public final class LightsStateBuilder {
 	}
 	return result;
     }
-    
+
     public static LightState parseOneState(int lightNum, JSONObject json) {
 	LightState s = new LightState();
 	s.setLightNum(lightNum);
@@ -27,8 +26,8 @@ public final class LightsStateBuilder {
 	s.setTemperature(json.getJSONObject("state").getInt("ct"));
 	return s;
     }
-    
-    public static JSONObject buildJsonBody(LightState state) { 
+
+    public static JSONObject buildJsonBody(LightState state) {
 	JSONObject body = new JSONObject();
 	if (state.isOn() != null) {
 	    body.put("on", state.isOn());
@@ -45,8 +44,7 @@ public final class LightsStateBuilder {
     public static JSONObject buildJsonBody(LightState newState, Duration transitionTime) {
 	JSONObject body = buildJsonBody(newState);
 	// Transition time is specified in multiples of 100ms
-	body.put("transitiontime", transitionTime.getSeconds()*Constants.TRANSITION_INTERVALS_PER_SEC);
+	body.put("transitiontime", transitionTime.getSeconds() * Constants.TRANSITION_INTERVALS_PER_SEC);
 	return body;
     }
 }
-	
